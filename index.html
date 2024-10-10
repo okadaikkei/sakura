@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生写真管理サイト</title>
+  <style>
+    /* ベースのフォントと背景 */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffe6f0; /* ピンクベージュ背景 */
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #ff66b2; /* ピンク色 */
+    }
+
+    /* フォームエレメントのスタイル */
+    form, .filter-form {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label {
+      font-size: 1em;
+      margin-bottom: 5px;
+      display: inline-block;
+      color: #ff66b2; /* ピンク */
+    }
+
+    input, select, button {
+      padding: 8px;
+      font-size: 0.95em;
+      margin: 8px 0;
+      width: 100%;
+      border: 1px solid #ff66b2;
+      border-radius: 8px;
+    }
+
+    input[type="number"] {
+      width: auto;
+    }
+
+    button {
+      background-color: #ff66b2;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1em;
+      padding: 8px 12px;
+    }
+    button:hover {
+      background-color: #ff3385; /* 少し濃いピンク */
+    }
+
+    /* フィルターセクション */
+    .filter-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* テーブルデザイン */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ff66b2;
+      padding: 8px 6px; /* パディングを減らしてコンパクトに */
+      text-align: center;
+      background-color: #fff;
+    }
+    th {
+      background-color: #ff99cc; /* 淡いピンク */
+      color: #fff;
+      font-size: 0.9em; /* フォントサイズを小さく */
+    }
+    td {
+      background-color: #ffe6f0; /* ピンクベージュ */
+      font-size: 0.9em; /* フォントサイズを小さく */
+    }
+    tr:hover {
+      background-color: #ffb3d9; /* 薄いピンク */
+    }
+
+    /* レスポンシブデザイン */
+    @media screen and (max-width: 600px) {
+      form, .filter-form {
+        padding: 10px;
+      }
+      form input, form select, .filter-form input, .filter-form select {
+        padding: 6px;
+        font-size: 0.9em;
+      }
+      table, th, td {
+        padding: 6px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>生写真管理サイト</h1>
+
+  <!-- 写真登録フォーム -->
+  <form id="photoForm">
+    <label for="type">種類：</label>
+    <input type="text" id="type" required><br>
+    
+    <label for="members">メンバー：</label>
+    <select id="members" required>
+      <option value="">選択してください</option>
+      <option value="石森 瑠花">石森 瑠花</option>
+      <option value="井上 梨名">井上 梨名</option>
+      <option value="上村 莉菜">上村 莉菜</option>
+      <option value="遠藤 光莉">遠藤 光莉</option>
+      <option value="遠藤 理子">遠藤 理子</option>
+      <option value="大園 玲">大園 玲</option>
+      <option value="大沼 晶保">大沼 晶保</option>
+      <option value="小田倉 麗奈">小田倉 麗奈</option>
+      <option value="小池 美波">小池 美波</option>
+      <option value="幸阪 茉里乃">幸阪 茉里乃</option>
+      <option value="小島 凪紗">小島 凪紗</option>
+      <option value="齋藤 冬優花">齋藤 冬優花</option>
+      <option value="武元 唯衣">武元 唯衣</option>
+      <option value="谷口 愛季">谷口 愛季</option>
+      <option value="田村 保乃">田村 保乃</option>
+      <option value="中嶋 優月">中嶋 優月</option>
+      <option value="藤吉 夏鈴">藤吉 夏鈴</option>
+      <option value="増本 綺良">増本 綺良</option>
+      <option value="松田 里奈">松田 里奈</option>
+      <option value="的野 美青">的野 美青</option>
+      <option value="向井 純葉">向井 純葉</option>
+      <option value="村井 優">村井 優</option>
+      <option value="村山 美羽">村山 美羽</option>
+      <option value="森田 ひかる">森田 ひかる</option>
+      <option value="守屋 麗奈">守屋 麗奈</option>
+      <option value="山﨑 天">山﨑 天</option>
+      <option value="山下 瞳月">山下 瞳月</option>
+    </select><br>
+    
+    <label for="pose">ポーズ：</label>
+    <select id="pose" required>
+      <option value="">選択してください</option>
+      <option value="寄り">寄り</option>
+      <option value="中">中</option>
+      <option value="引き">引き</option>
+      <option value="座り">座り</option>
+    </select><br>
+    
+    <label for="quantity">枚数：</label>
+    <input type="number" id="quantity" required><br>
+    
+    <button type="button" onclick="addPhoto()">登録</button>
+  </form>
+
+  <h2>写真絞り込み</h2>
+  <div class="filter-form">
+    <label for="filterType">種類：</label>
+    <input type="text" id="filterType" oninput="filterPhotos()"><br>
+    
+    <label for="filterMembers">メンバー：</label>
+    <select id="filterMembers" onchange="filterPhotos()">
+      <option value="">全て</option>
+      <option value="石森 瑠花">石森 瑠花</option>
+      <option value="井上 梨名">井上 梨名</option>
+      <option value="上村 莉菜">上村 莉菜</option>
+      <option value="遠藤 光莉">遠藤 光莉</option>
+      <option value="遠藤 理子">遠藤 理子</option>
+      <option value="大園 玲">大園 玲</option>
+      <option value="大沼 晶保">大沼 晶保</option>
+      <option value="小田倉 麗奈">小田倉 麗奈</option>
+      <option value="小池 美波">小池 美波</option>
+      <option value="幸阪 茉里乃">幸阪 茉里乃</option>
+      <option value="小島 凪紗">小島 凪紗</option>
+      <option value="齋藤 冬優花">齋藤 冬優花</option>
+      <option value="武元 唯衣">武元 唯衣</option>
+      <option value="谷口 愛季">谷口 愛季</option>
+      <option value="田村 保乃">田村 保乃</option>
+      <option value="中嶋 優月">中嶋 優月</option>
+      <option value="藤吉 夏鈴">藤吉 夏鈴</option>
+      <option value="増本 綺良">増本 綺良</option>
+      <option value="松田 里奈">松田 里奈</option>
+      <option value="的野 美青">的野 美青</option>
+      <option value="向井 純葉">向井 純葉</option>
+      <option value="村井 優">村井 優</option>
+      <option value="村山 美羽">村山 美羽</option>
+      <option value="森田 ひかる">森田 ひかる</option>
+      <option value="守屋 麗奈">守屋 麗奈</option>
+      <option value="山﨑 天">山﨑 天</option>
+      <option value="山下 瞳月">山下 瞳月</option>
+    </select><br>
+    
+    <label for="filterPose">ポーズ：</label>
+    <select id="filterPose" onchange="filterPhotos()">
+      <option value="">全て</option>
+      <option value="寄り">寄り</option>
+      <option value="中">中</option>
+      <option value="引き">引き</option>
+      <option value="座り">座り</option>
+    </select><br>
+    
+    <label for="filterQuantity">枚数：</label>
+    <input type="number" id="filterQuantity" oninput="filterPhotos()"><br>
+    
+    <button type="button" onclick="clearFilters()">絞り込みをクリア</button>
+  </div>
+
+  <h2>写真一覧</h2>
+  <table id="photoTable">
+    <thead>
+      <tr>
+        <th>種類</th>
+        <th>メンバー</th>
+        <th>ポーズ</th>
+        <th>枚数</th>
+      </tr>
+    </thead>
+    <tbody id="photoList">
+      <!-- 写真がここに表示されます -->
+    </tbody>
+  </table>
+
+  <button type="button" onclick="clearStoredPhotos()">保存した内容を消去</button>
+
+  <script>
+    var photos = JSON.parse(localStorage.getItem('photos')) || [];
+
+    if (photos.length > 0) {
+      renderPhotos();
+    }
+
+    function addPhoto() {
+      var type = document.getElementById("type").value;
+      var members = document.getElementById("members").value;
+      var pose = document.getElementById("pose").value;
+      var quantity = document.getElementById("quantity").value;
+
+      var photo = {
+        type: type,
+        members: members,
+        pose: pose,
+        quantity: quantity
+      };
+      photos.push(photo);
+      saveToLocalStorage();
+
+      renderPhotos();  // 新しい写真を追加後にリストを再表示
+
+      document.getElementById("photoForm").reset();  // フォームをリセット
+    }
+
+    function saveToLocalStorage() {
+      localStorage.setItem('photos', JSON.stringify(photos));
+    }
+
+    function renderPhotos() {
+      var table = document.getElementById("photoList");
+      table.innerHTML = '';
+
+      for (var i = 0; i < photos.length; i++) {
+        var photo = photos[i];
+        var row = table.insertRow();
+        row.innerHTML = `
+          <td>${photo.type}</td>
+          <td>${photo.members}</td>
+          <td>${photo.pose}</td>
+          <td>${photo.quantity}</td>
+        `;
+      }
+    }
+
+    function filterPhotos() {
+      var filterType = document.getElementById("filterType").value.toLowerCase();
+      var filterMembers = document.getElementById("filterMembers").value;
+      var filterPose = document.getElementById("filterPose").value;
+      var filterQuantity = document.getElementById("filterQuantity").value;
+
+      var filteredPhotos = photos.filter(function(photo) {
+        var matchesType = (filterType === '' || photo.type.toLowerCase().includes(filterType));
+        var matchesMember = (filterMembers === '' || filterMembers === "全て" || photo.members === filterMembers);
+        var matchesPose = (filterPose === '' || filterPose === "全て" || photo.pose === filterPose);
+        var matchesQuantity = (filterQuantity === '' || parseInt(photo.quantity) === parseInt(filterQuantity));
+
+        return matchesType && matchesMember && matchesPose && matchesQuantity;
+      });
+
+      var table = document.getElementById("photoList");
+      table.innerHTML = '';
+
+      for (var i = 0; i < filteredPhotos.length; i++) {
+        var photo = filteredPhotos[i];
+        var row = table.insertRow();
+        row.innerHTML = `
+          <td>${photo.type}</td>
+          <td>${photo.members}</td>
+          <td>${photo.pose}</td>
+          <td>${photo.quantity}</td>
+        `;
+      }
+    }
+
+    function clearFilters() {
+      document.getElementById("filterType").value = '';
+      document.getElementById("filterMembers").value = '';
+      document.getElementById("filterPose").value = '';
+      document.getElementById("filterQuantity").value = '';
+      renderPhotos();
+    }
+
+    function clearStoredPhotos() {
+      if (confirm("本当にすべてのデータを消去しますか？")) {
+        localStorage.removeItem('photos');
+        photos = [];
+        renderPhotos();
+        alert("データが消去されました。");
+      }
+    }
+  </script>
+</body>
+</html>
